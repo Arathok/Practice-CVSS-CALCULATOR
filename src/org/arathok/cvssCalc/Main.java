@@ -8,6 +8,7 @@ public class Main {
 
    public static void main(String[] args)
    {
+      CalculateScore.init();
       SwingUtilities.invokeLater(Fenster::new);
    }
 

@@ -20,6 +20,7 @@ public class Fenster extends JFrame {
 
     static JTextField theVector = new JTextField();
     static JLabel exampleVector = new JLabel("Vector Field Empty! Using Example Vector!");
+    static JLabel exploitabilityScoreValue= new JLabel("0.00");
     static ArrayList<JLabel> labels = new ArrayList<>();
     public static ArrayList<JComboBox<String>> textFields = new ArrayList<>();
 
@@ -43,14 +44,14 @@ public class Fenster extends JFrame {
         add(eM);
 
         JLabel eeM = new JLabel("<html><u>Environmental Exploitability Metrics</u></html>");
-        eeM.setBounds(250, 100, 300, 30);
+        eeM.setBounds(250, 265, 300, 30);
         add(eeM);
 
         JLabel iM = new JLabel("<html><u>Impact Metrics</u></html>");
         iM.setBounds(10, 365, 200, 30);
         add(iM);
 
-        JLabel tS = new JLabel("<html><u>Tempooral Score Metrics</u></html>");
+        JLabel tS = new JLabel("<html><u>Temporal Score Metrics</u></html>");
         tS.setBounds(10, 530, 200, 30);
         add(tS);
 
@@ -59,12 +60,22 @@ public class Fenster extends JFrame {
         add(environMentalSM);
 
         JLabel eiM = new JLabel("<html><u>Environmental Impact Metrics</u></html>");
-        eiM.setBounds(250, 365, 200, 30);
+        eiM.setBounds(250, 530, 200, 30);
         add(eiM);
 
         JLabel isM = new JLabel("<html><u>Impact Subscore Modifiers</u></html>");
-        isM.setBounds(250, 530, 200, 30);
+        isM.setBounds(250, 100, 200, 30);
         add(isM);
+
+
+        JLabel exploitabilityScore= new JLabel("<html><u>Base Exploitability</u></html>");
+        exploitabilityScore.setBounds(550, 500, 200, 30);
+        add(exploitabilityScore);
+
+
+        exploitabilityScoreValue.setBounds(550, 520, 200, 30);
+        add(exploitabilityScoreValue);
+        //exploitabilityScore.setVisible(false);
 
 
 
@@ -111,27 +122,30 @@ public class Fenster extends JFrame {
         makeDropDown("A", new String[]{"N: None", "L: Low", "H: High"});
 
         // Temporal Score Metrics
-        makeDropDown("E", new String[]{"U: Unproven", "P: Proof-of-Concept", "F: Functional", "H: High", "X: Undefined"});
-        makeDropDown("RL", new String[]{"O: Official Fix", "T: Temporary Fix", "W: Workaround", "U: Unavailable", "X: Undefined"});
-        makeDropDown("RC", new String[]{"U: Unknown", "R: Reasonable", "C: Confirmed", "X: Undefined"});
+        makeDropDown("E", new String[]{"X: Undefined","U: Unproven", "P: Proof-of-Concept", "F: Functional", "H: High"});
+        makeDropDown("RL", new String[]{"X: Undefined","O: Official Fix", "T: Temporary Fix", "W: Workaround", "U: Unavailable"});
+        makeDropDown("RC", new String[]{"X: Undefined","U: Unknown", "R: Reasonable", "C: Confirmed"});
 
         //Environmental Score Metrics
-        //Exploitability
-        makeDropDown("MAV", new String[]{"N: Network", "A: Adjacent", "L: Local", "P: Physical", "X: Undefined"});
-        makeDropDown("MAC", new String[]{"L: Low", "H: High", "X: Undefined"});
-        makeDropDown("MPR", new String[]{"N: None", "L: Low", "H: High", "X: Undefined"});
-        makeDropDown("MUI", new String[]{"N: None", "R: Required", "X: Undefined"});
-        makeDropDown("MS", new String[]{"U: Unchanged", "C: Changed", "X: Undefined"});
-
-        // Impact
-        makeDropDown("MC", new String[]{"N: None", "L: Low", "H: High", "X: Undefined"});
-        makeDropDown("MI", new String[]{"N: None", "L: Low", "H: High", "X: Undefined"});
-        makeDropDown("MA", new String[]{"N: None", "L: Low", "H: High", "X: Undefined"});
 
         //Impact Subscore
-        makeDropDown("CR", new String[]{"L: Low", "M: Medium", "H: High", "X: Undefined"});
-        makeDropDown("IR", new String[]{"L: Low", "M: Medium", "H: High", "X: Undefined"});
-        makeDropDown("AR", new String[]{"L: Low", "M: Medium", "H: High", "X: Undefined"});
+        makeDropDown("CR", new String[]{"X: Undefined","L: Low", "M: Medium", "H: High"});
+        makeDropDown("IR", new String[]{"X: Undefined","L: Low", "M: Medium", "H: High"});
+        makeDropDown("AR", new String[]{"X: Undefined","L: Low", "M: Medium", "H: High"});
+
+        //Exploitability
+        makeDropDown("MAV", new String[]{"X: Undefined","N: Network", "A: Adjacent", "L: Local", "P: Physical"});
+        makeDropDown("MAC", new String[]{"X: Undefined","L: Low", "H: High"});
+        makeDropDown("MPR", new String[]{"X: Undefined","N: None", "L: Low", "H: High"});
+        makeDropDown("MUI", new String[]{"X: Undefined","N: None", "R: Required"});
+        makeDropDown("MS", new String[]{"X: Undefined","U: Unchanged", "C: Changed"});
+
+        // Impact
+        makeDropDown("MC", new String[]{"X: Undefined","N: None", "L: Low", "H: High" });
+        makeDropDown("MI", new String[]{"X: Undefined","N: None", "L: Low", "H: High"});
+        makeDropDown("MA", new String[]{"X: Undefined","N: None", "L: Low", "H: High" });
+
+
 
     }
 
@@ -158,6 +172,12 @@ public class Fenster extends JFrame {
         makeLabel("RC:");
 
         //Environmental Score Metrics
+
+        //Impact Subscore
+        makeLabel("CR:");
+        makeLabel("IR:");
+        makeLabel("AR:");
+
         //Exploitability
         makeLabel("MAV:");
         makeLabel("MAC:");
@@ -170,17 +190,14 @@ public class Fenster extends JFrame {
         makeLabel("MI:");
         makeLabel("MA:");
 
-        //Impact Subscore
-        makeLabel("CR:");
-        makeLabel("IR:");
-        makeLabel("AR:");
+
 
     }
 
     public static void makeLabel(String name) {
         JLabel av = new JLabel(name);
         av.setBounds(labelXDist, labelYDist, labelWidth, labelHeight);
-        if (name.equals("S:")||name.equals("A:")||name.equals("MS:")||name.equals("MA:"))
+        if (name.equals("S:")||name.equals("A:")||name.equals("MS:")||name.equals("AR:"))
         labelYDist += 15;
         if (labelYDist <= 650&&!name.equals("RC:"))
             labelYDist += 50;
@@ -193,10 +210,10 @@ public class Fenster extends JFrame {
     }
 
     public static void makeDropDown(String name, String[] options) {
-        JComboBox<String> av = new JComboBox(options);
+        JComboBox<String> av = new JComboBox<>(options);
         av.setBounds(textFieldXDist, textFieldYDist, textFieldWidth, textFieldHeight);
         av.setName(name);
-        if (name.equals("S")||name.equals("A")||name.equals("MS")||name.equals("MA"))
+        if (name.equals("S")||name.equals("A")||name.equals("MS")||name.equals("AR"))
             textFieldYDist += 15;
         if (textFieldYDist <= 650&&!name.equals("RC"))
             textFieldYDist += 50;
@@ -204,6 +221,15 @@ public class Fenster extends JFrame {
             textFieldYDist = 135;
             textFieldXDist = 300;
         }
+        if(name.equals("AV"))
+            av.setSelectedIndex(3);
+        if(name.equals("AC"))
+            av.setSelectedIndex(1);
+        if(name.equals("PR"))
+            av.setSelectedIndex(2);
+        if(name.equals("UI"))
+            av.setSelectedIndex(1);
+
         textFields.add(av);
     }
 
